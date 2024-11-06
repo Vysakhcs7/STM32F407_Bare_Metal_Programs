@@ -17,25 +17,25 @@
  */
 
 #include<stdint.h>
+/*------------------------------------------------------------------------------------------*/
 
-void delay(void)
-{
-	for(volatile int i =0; i<1000000; i++);
-}
+void delay(void);
+/*------------------------------------------------------------------------------------------*/
+
 //RCC AHB1ENR base address
 #define RCC_BASE_ADDR				(0x40023800U)
 #define RCC_AHB1ENR_OFFSET			(0x30U)
-#define RCC_AHB1ENR_ADDR			RCC_BASE_ADDR + RCC_AHB1ENR_OFFSET
+#define RCC_AHB1ENR_ADDR			(uint32_t *)(RCC_BASE_ADDR + RCC_AHB1ENR_OFFSET)
 //GPIOD base address
 #define AHB1_BASE_ADDR 				(0x40020000U)
 #define GPIOD_BASE_OFFSET 			(0x0C00U)
-#define GPIOD_BASE_ADDR 			AHB1_BASE_ADDR + GPIOD_BASE_OFFSET
+#define GPIOD_BASE_ADDR 			(AHB1_BASE_ADDR + GPIOD_BASE_OFFSET)
 //GPIO port mode register base address
 #define GPIOD_MODER_OFFSET			(0x00U)
-#define GPIOD_MODER_BASE_ADDR		GPIOD_BASE_ADDR + GPIOD_MODER_OFFSET
+#define GPIOD_MODER_BASE_ADDR		(uint32_t *) (GPIOD_BASE_ADDR + GPIOD_MODER_OFFSET)
 //GPIO port output data register base address
 #define GPIOD_ODR_OFFSET 			(0x14U)
-#define GPIOD_ODR_BASE_ADDR  		GPIOD_BASE_ADDR +  GPIOD_ODR_OFFSET
+#define GPIOD_ODR_BASE_ADDR  		(uint32_t *) (GPIOD_BASE_ADDR +  GPIOD_ODR_OFFSET)
 int main(void)
 {
 	//Bit 3 GPIODEN: IO port D clock enable FROM RCC_AHB1ENR register
@@ -59,3 +59,10 @@ int main(void)
 	}
 	return 0;
 }
+/*------------------------------------------------------------------------------------------*/
+
+void delay(void)
+{
+	for(volatile int i =0; i<1000000; i++);
+}
+/*------------------------------------------------------------------------------------------*/
